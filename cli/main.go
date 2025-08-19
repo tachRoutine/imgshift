@@ -3,17 +3,25 @@ package main
 import (
 	"flag"
 	"fmt"
+	"strings"
 )
 
 
 func main(){
 	args := flag.Args()
-	fmt.Println("Arguments passed to the program:")
+	toFormat := flag.String("format", "jpeg", "Output format (jpeg|png|gif)")
 	flag.Parse()
 
-	if len(args) == 0{
-		fmt.Println("No argument provided")
-		return
+
+}
+
+func validateImgFile(path string) error {
+	allowedFormats := []string{"jpeg", "png", "gif"}
+	for _, format := range allowedFormats{
+		if strings.HasSuffix(path, format) {
+			return nil
+		}
+		
 	}
-	
+	return fmt.Errorf("invalid image format: %s", path)
 }
