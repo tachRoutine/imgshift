@@ -8,12 +8,11 @@ import (
 
 
 func main(){
-	args := flag.Args()
 	toFormat := flag.String("format", "jpeg", "Output format (jpeg|png|gif)")
-	fmt.Println("Arguments passed:", args)
-	path := args[0]
 	flag.Parse()
-
+	args := flag.Args()
+	path := args[0]
+	
 	if err := validateImgFile(path); err != nil {
 		fmt.Println(err)
 		return
@@ -31,4 +30,9 @@ func validateImgFile(path string) error {
 		}
 	}
 	return fmt.Errorf("invalid image format: %s", path)
+}
+
+func convertImageFormat(image string, toFormat string) error {
+	fmt.Printf("Converting %s to %s format...\n", image, toFormat)
+	return nil
 }
