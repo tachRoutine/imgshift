@@ -2,6 +2,7 @@ package converter
 
 import (
 	"fmt"
+	"image/jpeg"
 	"image/png"
 	"os"
 )
@@ -27,12 +28,11 @@ func Png2jpeg(input string) error {
 	}
 	defer jpegFile.Close()
 
-	if err := jpeg.Encode(jpegFile, pngImage, nil); err != nil {
-		return fmt.Errorf("failed to encode JPEG image: %v", err)
+	encodeErr := jpeg.Encode(jpegFile, pngImage, &jpeg.Options{Quality: 90})
+	if encodeErr != nil {
+		return fmt.Errorf("failed to encode JPEG image: %v", encodeErr)
 	}
-
 	fmt.Printf("Converting %s to %s format...\n", input, output)
-	
 	return nil
 }
 
