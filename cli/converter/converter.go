@@ -50,6 +50,23 @@ func Png2jpeg(input string) error {
 func Jpeg2png(input string) error {
 	fmt.Println("Converting JPEG to PNG...")
 	output := fmt.Sprintf("%s%s.png", OUTPUT_DIR, input)
+	image, err := os.Open(input)
+	if err != nil {
+		return err
+	}
+	defer image.Close()
+
+	jpegImage, err := jpeg.Decode(image)
+	if err != nil {
+		return fmt.Errorf("Failed to decode the jpeg file,", err)
+	}
+
+	pngFile, err := os.Create(output)
+	if err != nil {
+		return err
+	}
+	defer pngFile.Close()
+	encodeErr := png.Encode(pngFile, jpegImage, &jpeg.Options{Quality: 90})
 	fmt.Printf("Converting %s to %s format...\n", input, output)
 	return nil
 }
