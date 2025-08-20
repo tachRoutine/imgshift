@@ -18,7 +18,7 @@ func main(){
 		return
 	}
 
-	fmt.Println("converting to", *toFormat)
+	convertImageFormat(path, *toFormat)
 
 }
 
