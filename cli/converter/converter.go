@@ -58,7 +58,7 @@ func Jpeg2png(input string) error {
 
 	jpegImage, err := jpeg.Decode(image)
 	if err != nil {
-		return fmt.Errorf("Failed to decode the jpeg file,", err)
+		return fmt.Errorf("Failed to decode the jpeg file: %v", err)
 	}
 
 	pngFile, err := os.Create(output)
@@ -66,7 +66,10 @@ func Jpeg2png(input string) error {
 		return err
 	}
 	defer pngFile.Close()
-	encodeErr := png.Encode(pngFile, jpegImage, &jpeg.Options{Quality: 90})
+	encodeErr := png.Encode(pngFile, jpegImage)
+	if encodeErr != nil {
+		return fmt.Errorf("failed to encode: %v", encodeErr)
+	}
 	fmt.Printf("Converting %s to %s format...\n", input, output)
 	return nil
 }
