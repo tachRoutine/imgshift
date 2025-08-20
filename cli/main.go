@@ -9,7 +9,7 @@ import (
 
 
 func main(){
-	toFormat := flag.String("format", "jpeg", "Output format (jpeg|png|gif)")
+	toFormat := flag.String("to", "jpeg", "Output format (jpeg|png|gif)")
 	flag.Parse()
 	args := flag.Args()
 	path := args[0]
