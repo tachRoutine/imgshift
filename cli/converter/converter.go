@@ -10,6 +10,7 @@ import (
 const OUTPUT_DIR = "./output/"
 
 func Png2jpeg(input string) error {
+	fmt.Println("Converting PNG to JPEG...")
 	output := fmt.Sprintf("%s%s.jpeg", OUTPUT_DIR, input)
 	image, err := os.Open(input)
 	if err != nil {

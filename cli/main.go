@@ -19,8 +19,11 @@ func main(){
 		return
 	}
 
-	convertImageFormat(path, *toFormat)
-
+	err := convertImageFormat(path, *toFormat)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
 
 func validateImgFile(path string) error {
