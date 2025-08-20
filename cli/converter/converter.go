@@ -7,7 +7,17 @@ import (
 	"os"
 )
 
-const OUTPUT_DIR = "./output/"
+const OUTPUT_DIR = "./imgshift_output/"
+
+func init(){
+	_, err := os.Stat(OUTPUT_DIR)
+	if os.IsNotExist(err) {
+		err = os.MkdirAll(OUTPUT_DIR, 0755)
+		if err != nil {
+			fmt.Printf("Failed to create output directory: %v\n", err)
+		}
+	}
+}
 
 func Png2jpeg(input string) error {
 	fmt.Println("Converting PNG to JPEG...")
