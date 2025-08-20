@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"imgshift-cli/converter"
 	"strings"
 )
 
@@ -32,7 +33,24 @@ func validateImgFile(path string) error {
 	return fmt.Errorf("invalid image format: %s", path)
 }
 
+func getImageType(image string) (string, error) {
+	if strings.HasSuffix(image, "jpeg") {
+		return "jpeg", nil
+	} else if strings.HasSuffix(image, "png") {
+		return "png", nil
+	} else if strings.HasSuffix(image, "gif") {
+		return "gif", nil
+	}
+	return "", fmt.Errorf("unknown image format: %s", image)
+}
+
 func convertImageFormat(image string, toFormat string) error {
-	fmt.Printf("Converting %s to %s format...\n", image, toFormat)
-	return nil
+	switch toFormat {
+	case "jpeg":
+		return converter.Png2jpeg(image)
+	case "png":
+		return converter.Jpeg2png(image)
+	default:
+		return fmt.Errorf("unsupported format: %s", toFormat)
+	}
 }
